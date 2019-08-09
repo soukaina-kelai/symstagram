@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+    <h1>Post index</h1>
+
+        {% for post in posts %}
+
+            <div class="card mb-3">
+                <div class="card-header"># {{ post.id }} créé le {{ post.createdAt|date('d/m/Y') }} par {{ post.username }}</div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-4"><img src="{{ asset('uploads/posts/' ~ post.photo) }}" height="100" alt=""></div>
+                        <div class="col-8"><p class="lead">{{ post.message }}</p></div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    Likes : {{ post.likes }} <a href="{{ path('post_add_like', {'id': post.id }) }}" class="btn btn-success btn-sm">Liker la photo</a>
+                    <hr>
+                    <a href="{{ path('post_show', {'id': post.id}) }}">show</a>
+                    <a href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
+                </div>
+            </div>
+        {% else %}
+            <p>Aucun post</p>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('post_new') }}">Create new</a>
+{% endblock %}

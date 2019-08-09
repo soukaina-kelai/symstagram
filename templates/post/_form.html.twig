@@ -1,0 +1,22 @@
+{{ form_start(form) }}
+
+
+<div class="row">
+    <div class="col-6">
+
+        {{ form_row(form.username) }}
+        {{ form_row(form.message) }}
+
+    </div>
+    <div class="col-6">
+
+        {{ form_row(form.photo) }}
+
+        <button class="btn btn-sm btn-primary float-right">{{ button_label|default('Save') }}</button>
+
+    </div>
+</div>
+
+
+
+{{ form_end(form) }}
