@@ -14,7 +14,6 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
             ->add('message')
             ->add('photo', FileType::class, [
                 'label' => 'Photo à uploader',

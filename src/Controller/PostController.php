@@ -6,6 +6,7 @@ use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use App\Services\FileUploadService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +19,7 @@ class PostController extends AbstractController
 {
     /**
      * @Route("/new", name="post_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function new(Request $request, FileUploadService $fileUploadService): Response
     {
@@ -32,6 +34,10 @@ class PostController extends AbstractController
             if ($photoFile) {
                 $photoName = $fileUploadService->uploadFile( $photoFile );
                 $post->setPhoto( $photoName );
+            }
+
+            if ($this->getUser()) {
+                $post->setUsername( $this->getUser()->getUsername() );
             }
 
             $entityManager = $this->getDoctrine()->getManager();
